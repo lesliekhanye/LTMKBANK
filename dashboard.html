@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" href="/kbowlogo.png" type="image/png" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <title>LTMK BANK</title>
+  </head>
+  <body class="bg-[#232323] text-white">
+    <div class="mt-3">
+      <div class="flex justify-center">
+        <img src="/kbowlogo.png" alt="" class="w-32" />
+      </div>
+      <div>
+        <h1 class="text-center text-2xl">LTMK BANK OF WEALTH</h1>
+      </div>
+    </div>
+    <div class="mt-5 ml-14">
+      <p class="text-[#808080]">YOU ARE SECURE, MR KHANYE</p>
+    </div>
+
+    <div
+      class="mx-auto grid gap-4 w-11/12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 grid-rows-[auto auto] lg:grid-rows-2"
+    >
+      <!-- Available Balance -->
+      <div>
+        <div class="bg-black rounded-lg p-3">
+          <div>
+            <p class="text-[#aa9c65]">AVAILABLE BALANCE</p>
+          </div>
+          <div>
+            <p id="balance">R123038.49</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Send Money -->
+      <div class="row-span-1 sm:row-span-2 lg:row-span-2 bg-black p-3">
+        <div>
+          <p class="text-[#aa9c65]">SEND MONEY</p>
+        </div>
+        <div class="my-4">
+          <label for="token" class="block text-left mb-2"
+            >ENTER 16 DIGIT TOKEN</label
+          >
+          <input type="number" id="token" class="w-full sm:w-56 h-8" />
+        </div>
+        <div class="my-4">
+          <label for="send-amount" class="block text-left mb-2"
+            >ENTER AMOUNT</label
+          >
+          <input type="number" id="send-amount" class="w-full sm:w-56 h-8" />
+        </div>
+        <div>
+          <button
+            id="send-money"
+            class="bg-[#AA9C65] p-3 w-full sm:w-56 rounded-full flex items-center justify-center text-lg gap-2 h-8"
+          >
+            PAY
+            <img src="/pay.png" alt="" class="w-5" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Vault Section -->
+      <div
+        class="row-span-1 sm:row-span-2 lg:row-span-2 bg-black flex flex-col items-center justify-center p-3 text-center"
+      >
+        <div>
+          <img src="/kbowlogo.png" alt="" class="w-32 mb-4" />
+        </div>
+        <div>
+          <a href="/index.html">
+            <button
+              class="bg-[#AA9C65] p-3 w-full sm:w-56 rounded-full flex items-center justify-center text-lg gap-2 h-8"
+            >
+              CLOSE VAULT
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Request Loan -->
+      <div>
+        <div class="bg-black rounded-lg p-3">
+          <div>
+            <p class="text-[#aa9c65]">REQUEST LOAN</p>
+          </div>
+          <div class="my-4">
+            <label for="loan-amount" class="block text-left mb-2"
+              >ENTER AMOUNT</label
+            >
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                id="loan-amount"
+                class="w-full sm:w-56 h-8"
+              />
+              <button
+                id="request-loan"
+                class="bg-[#aa9c65] rounded-full w-16 h-8 flex items-center justify-center"
+              >
+                <img src="/request.png" alt="" class="w-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center mt-10">
+      <img src="/protext.png" alt="" class="w-52" />
+    </div>
+
+    <script>
+      const balanceElement = document.getElementById("balance");
+      let balance = 123038.49;
+
+      document.getElementById("send-money").addEventListener("click", () => {
+        const token = document.getElementById("token").value;
+        const sendAmount = parseFloat(
+          document.getElementById("send-amount").value
+        );
+
+        if (!token || token.length !== 16) {
+          alert("Invalid token. Please enter a 16-digit token.");
+          return;
+        }
+
+        if (!sendAmount || sendAmount <= 0) {
+          alert("Please enter a valid amount to send.");
+          return;
+        }
+
+        if (sendAmount > balance) {
+          alert("Insufficient balance.");
+          return;
+        }
+
+        balance -= sendAmount;
+        balanceElement.textContent = `R${balance.toFixed(2)}`;
+        alert(`Successfully sent R${sendAmount.toFixed(2)}.`);
+      });
+
+      document.getElementById("request-loan").addEventListener("click", () => {
+        const loanAmount = parseFloat(
+          document.getElementById("loan-amount").value
+        );
+
+        if (!loanAmount || loanAmount <= 0) {
+          alert("Please enter a valid loan amount.");
+          return;
+        }
+
+        balance += loanAmount;
+        balanceElement.textContent = `R${balance.toFixed(2)}`;
+        alert(`Loan of R${loanAmount.toFixed(2)} approved.`);
+      });
+    </script>
+  </body>
+</html>
